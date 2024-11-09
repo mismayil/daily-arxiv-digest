@@ -16,11 +16,11 @@ def make_github_issue(title, body=None, assignee=USERNAME, closed=False, labels=
     }
 
     # Create our issue
-    data = {"issue": {"title": title,
-                      "body": body,
-                      "assignee": assignee,
-                      "closed": closed,
-                      "labels": labels}}
+    data = {"title": title,
+            "body": body,
+            "assignee": assignee,
+            "closed": closed,
+            "labels": labels}
 
     payload = json.dumps(data)
 
