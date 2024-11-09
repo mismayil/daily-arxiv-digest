@@ -19,4 +19,4 @@ jobs:
       - name: Check arXiv lists and create github issue(s)
         env:
           ISSUE_TOKEN: ${{ secrets.ISSUE_TOKEN }}
-        run: python main.py%  
+        run: python main.py
