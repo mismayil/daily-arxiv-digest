@@ -1,4 +1,7 @@
 name: Get daily notifications from Arxiv
+permissions:
+  contents: read
+  issues: write 
 
 on: [push]
   # schedule:
