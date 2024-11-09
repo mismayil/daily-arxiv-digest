@@ -6,12 +6,13 @@ from config import USERNAME, REPO_OWNER, REPO_NAME
 def make_github_issue(title, body=None, assignee=USERNAME, closed=False, labels=[]):
     # Create an issue on github.com using the given parameters
     # Url to create issues via POST
-    url = f"https://api.github.com/repos/{REPO_OWNER}/{REPO_NAME}/import/issues"
+    url = f"https://api.github.com/repos/{REPO_OWNER}/{REPO_NAME}/issues"
 
     # Headers
     headers = {
-        "Authorization": f"token {os.environ['ISSUE_TOKEN']}",
-        "Accept": "application/vnd.github.golden-comet-preview+json"
+        "Authorization": f"Bearer {os.environ['ISSUE_TOKEN']}",
+        "Accept": "application/vnd.github+json",
+        "X-GitHub-Api-Version": "2022-11-28"
     }
 
     # Create our issue
@@ -25,7 +26,7 @@ def make_github_issue(title, body=None, assignee=USERNAME, closed=False, labels=
 
     # Add the issue to our repository
     response = requests.request("POST", url, data=payload, headers=headers)
-    if response.status_code == 202:
+    if response.status_code == 201:
         print(f"Successfully created Issue [{title}]")
     else:
         print(f"Could not create Issue [{title}]")
