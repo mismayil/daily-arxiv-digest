@@ -37,15 +37,16 @@ def main():
             paper["abstract"] = result.find("span", {"class": "abstract-full"}).text.replace("Abstract:", "").replace("△ Less", "").strip()
             papers.append(paper)
 
-        full_report = ""
-        
-        for paper in papers:
-            report = "### {}\n - **Authors:** {}\n - **Subjects:** {}\n - **Arxiv link:** {}\n - **Pdf link:** {}\n - **Abstract**\n {}" \
-                .format(paper["title"], paper["authors"], paper["subjects"], paper["url"], paper["pdf"],
-                        paper["abstract"])
-            full_report = full_report + report + "\n\n"
+        if papers:
+            full_report = ""
+            
+            for paper in papers:
+                report = "### {}\n - **Authors:** {}\n - **Subjects:** {}\n - **Arxiv link:** {}\n - **Pdf link:** {}\n - **Abstract**\n {}" \
+                    .format(paper["title"], paper["authors"], paper["subjects"], paper["url"], paper["pdf"],
+                            paper["abstract"])
+                full_report = full_report + report + "\n\n"
 
-        make_github_issue(title=issue_title, body=full_report, labels=KEYWORDS)
+            make_github_issue(title=issue_title, body=full_report, labels=KEYWORDS)
 
 if __name__ == "__main__":
     main()

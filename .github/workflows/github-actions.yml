@@ -3,9 +3,9 @@ permissions:
   contents: read
   issues: write 
 
-on: push
-  # schedule:
-  #   - cron: '0 8 * * mon-fri'
+on:
+  schedule:
+    - cron: '0 8 * * mon-fri'
 
 jobs:
   report:
