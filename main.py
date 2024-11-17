@@ -14,18 +14,7 @@ def get_paper_id(result):
         arxiv_id_text = match.group(0)
         return arxiv_id_text.split(":")[-1].strip()
 
-def load_past_papers():
-    with open("past_papers.txt", "r") as file:
-        content = file.read()
-        return content.split(";")
-
-def add_to_past_papers(papers):
-    with open("past_papers.txt", "a") as file:
-        file.write(";")
-        file.write(";".join(papers))
-
 def main():
-    past_papers = load_past_papers()
     for search_url in SEARCH_URLS:
         page = urllib.request.urlopen(search_url)
         soup = bs(page, "html.parser")
@@ -39,10 +28,6 @@ def main():
         for result in result_list:
             paper = {}
             paper_number = get_paper_id(result)
-
-            if paper_number in past_papers:
-                continue
-            
             paper["number"] = paper_number
             paper["url"] = arxiv_base + paper_number
             paper["pdf"] = arxiv_base.replace("abs", "pdf") + paper_number
@@ -61,7 +46,6 @@ def main():
             full_report = full_report + report + "\n\n"
 
         make_github_issue(title=issue_title, body=full_report, labels=KEYWORDS)
-        add_to_past_papers([paper["number"] for paper in papers])
 
 if __name__ == "__main__":
     main()
