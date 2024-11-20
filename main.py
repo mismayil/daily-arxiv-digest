@@ -48,7 +48,14 @@ def main():
                 full_report = full_report + report + "\n\n"
 
             issue_url = make_github_issue(title=issue_title, body=full_report, labels=KEYWORDS)
-            send_message(SLACK_CHANNEL_ID, f"BREAKING PAPERS. Check them out at {issue_url}")
+            slack_text = ":rotating_light: BREAKING PAPERS!"
+
+            for i, paper in enumerate(papers):
+                slack_text += f"\n<{paper['url']}|{i+1}. {paper['title']}>"
+            
+            slack_text += f"\nCheck them out at {issue_url}"
+
+            send_message(SLACK_CHANNEL_ID, slack_text)
         else:
             print("No papers found")
 
