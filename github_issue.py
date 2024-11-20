@@ -28,6 +28,7 @@ def make_github_issue(title, body=None, assignee=USERNAME, closed=False, labels=
     response = requests.request("POST", url, data=payload, headers=headers)
     if response.status_code == 201:
         print(f"Successfully created Issue [{title}]")
+        return response.html_url
     else:
         print(f"Could not create Issue [{title}]")
         print("Response:", response.content)

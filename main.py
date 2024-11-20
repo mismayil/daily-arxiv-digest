@@ -4,7 +4,8 @@ from datetime import datetime
 import re
 
 from github_issue import make_github_issue
-from config import SEARCH_URLS, KEYWORDS
+from slack import send_message
+from config import SEARCH_URLS, KEYWORDS, SLACK_CHANNEL_ID
 
 def get_paper_id(result):
     paper_number = result.find("p", {"class": "list-title"}).text
@@ -20,7 +21,7 @@ def main():
         soup = bs(page, "html.parser")
         content = soup.body.find("div", {"class": "content"})
 
-        issue_title = f"Notifications for {datetime.now().strftime('%Y-%m-%d')}"
+        issue_title = f"Arxiv Paper Digest for {datetime.now().strftime('%Y-%m-%d')}"
         arxiv_base = "https://arxiv.org/abs/"
         result_list = content.find_all("li", {"class": "arxiv-result"})
         papers = []
@@ -46,7 +47,10 @@ def main():
                             paper["abstract"])
                 full_report = full_report + report + "\n\n"
 
-            make_github_issue(title=issue_title, body=full_report, labels=KEYWORDS)
+            issue_url = make_github_issue(title=issue_title, body=full_report, labels=KEYWORDS)
+            send_message(SLACK_CHANNEL_ID, f"BREAKING PAPERS. Check them out at {issue_url}")
+        else:
+            print("No papers found")
 
 if __name__ == "__main__":
     main()

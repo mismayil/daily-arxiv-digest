@@ -3,9 +3,9 @@ permissions:
   contents: read
   issues: write 
 
-on:
-  schedule:
-    - cron: '0 8 * * mon-fri'
+on: push
+  # schedule:
+  #   - cron: '0 8 * * mon-fri'
 
 jobs:
   report:
@@ -23,4 +23,5 @@ jobs:
       - name: Check arXiv lists and create github issue(s)
         env:
           ISSUE_TOKEN: ${{ secrets.ISSUE_TOKEN }}
+          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
         run: python main.py
