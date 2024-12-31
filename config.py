@@ -5,7 +5,7 @@ USERNAME = "mismayil"
 
 # The repository to add this issue to
 REPO_OWNER = "mismayil"
-REPO_NAME = "daily-arxiv-notifications"
+REPO_NAME = "daily-arxiv-digest"
 
 from_date = (datetime.now() - timedelta(days=1)).strftime("%Y-%m-%d")
 # Set submission url(s) of subject

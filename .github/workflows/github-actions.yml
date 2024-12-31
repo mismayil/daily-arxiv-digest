@@ -5,7 +5,7 @@ permissions:
 
 on:
   schedule:
-    - cron: '0 8 * * mon-fri'
+    - cron: '0 8 * * *'
 
 jobs:
   report:
