@@ -6,7 +6,7 @@ You can get daily arxiv digests with pre-defined keywords as [here](https://gith
 
 Arxiv.org announces new submissions every day on fixed time as informed [here](https://arxiv.org/help/submit).
 
-This repository makes it easy to filter papers and follow-up new papers which are in your interests by creating an issue in a github repository.
+This repository makes it easy to filter papers and follow-up new papers which are in your interests by creating an issue in a github repository and optionally sending a message to a Slack channel.
 
 
 ## Prerequisites
